@@ -2,7 +2,8 @@
 
 namespace App;
 
-final class Item implements UpdateableItem {
+final class Item implements UpdateableItem
+{
     public function __construct(
         public string $name,
         public int $sell_in,
