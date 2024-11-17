@@ -2,20 +2,25 @@
 
 namespace App;
 
-final class Item
-{
-    public $name;
-    public $sell_in;
-    public $quality;
+final class Item implements UpdateableItem {
+    public function __construct(
+        public string $name,
+        public int $sell_in,
+        public int $quality,
+        private ?UpdateableItem $updater = null
+    ) {}
 
-    function __construct($name, $sell_in, $quality)
+    public function setUpdater(UpdateableItem $updater): void
     {
-        $this->name = $name;
-        $this->sell_in = $sell_in;
-        $this->quality = $quality;
+        $this->updater = $updater;
     }
 
-    public function __toString()
+    public function updateQuality(): void
+    {
+        $this->updater->updateQuality();
+    }
+
+    public function __toString(): string
     {
         return "{$this->name}, {$this->sell_in}, {$this->quality}";
     }
